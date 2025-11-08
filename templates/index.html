@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Predictor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<script>
+    window.symptomIndex = JSON.parse('{{ symptom_index|tojson }}');
+</script>
+
+<body>
+    <div class="container">
+        <h1>Disease Prediction from Symptoms</h1>
+
+        <form action="/predict" method="post" class="form-section">
+            <p>Enter your symptoms below.</p>
+            <span class="symptom-hint">Start typing to get suggestions.</span>
+            <span class="symptom-hint">Provide at least {{ MIN_SYMPTOMS }} symptoms for a reliable prediction.</span>
+
+            <div class="form-group">
+                <label for="symptoms-input">Your Symptoms:</label>
+                <div class="autocomplete" style="width:300px;">
+                    <input id="symptoms-input" type="text" name="symptoms" placeholder="e.g., high_fever"
+                        aria-label="Enter your symptoms">
+                </div>
+                <ul class="symptom-list" id="symptom-list">
+                    <!-- Symptoms will be added here dynamically -->
+                </ul>
+                <div id="symptom-count" class="symptom-hint"></div>
+            </div>
+            <button type="submit" class="btn-primary" id="predictButton"
+                aria-label="Predict Disease based on symptoms">Predict Disease</button>
+            <button type="button" class="btn-secondary" id="clearButton" aria-label="Clear the symptom form">Clear
+                Form</button>
+        </form>
+
+        <div class="loading-indicator" id="loadingIndicator">
+            <div class="spinner"></div>
+        </div>
+
+        {% if results['status'] == 'Prediction Successful' %}
+        <div class="results-section" aria-live="polite">
+            <h2>Prediction Results</h2>
+            {% if results['status'] == 'Prediction Successful' %}
+            <div class="result-item">
+                <span class="predicted-disease-label">{{ results['predicted_disease_label'] }}</span>
+                <span class="confidence status-success">({{ results['probability'] }} Confidence)</span>
+            </div>
+            <p class="message">{{ results['message'] }}</p>
+
+
+            {% if results['Hospital Recommendations'] %}
+            <button type="button" class="collapsible" aria-expanded="false">Hospital Recommendations in
+                Chandrapur</button>
+            <div class="content">
+                <ul>
+                    {% for hospital in results['Hospital Recommendations'] %}
+                    <li>{{ hospital }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            {% elif results['status'] == 'Insufficient Data' %}
+            <p class="error-message status-error"><strong>Error:</strong> {{ results['message'] }}</p>
+            {% elif results['status'] == 'Unrecognized Symptoms' %}
+            <p class="error-message status-error"><strong>Error:</strong> {{ results['message'] }}</p>
+            {% elif results['status'] == 'Uncertain Diagnosis' %}
+            <p class="error-message status-uncertain"><strong>Uncertain Diagnosis:</strong> {{ results['message'] }}</p>
+            {% elif results['status'] == 'Error' %}
+            <p class="error-message status-error"><strong>System Error:</strong> {{ results['message'] }}</p>
+            {% else %}
+            <p class="error-message status-error">An unexpected error occurred during prediction.</p>
+            <p>Details: {{ results['message'] if results['message'] else 'No specific error message available.' }}</p>
+            {% endif %}
+
+            {% if results['unrecognized_symptoms'] %}
+            <p class="unrecognized-symptoms">
+                <strong>Note:</strong> The following symptoms were not recognized by the system:
+                <span class="status-error">{{ results['unrecognized_symptoms']|join(', ') }}</span>.
+                This might affect the accuracy of the prediction.
+            </p>
+            {% endif %}
+            <script>
+                // FIX: Collapsible logic ithe add kara, jyamule to render zalyavar turat chalu hoil
+                var coll = document.getElementsByClassName("collapsible");
+                for (let i = 0; i < coll.length; i++) {
+                    coll[i].addEventListener("click", function () {
+                        this.classList.toggle("active");
+                        var content = this.nextElementSibling;
+                        if (content.style.maxHeight) {
+                            content.style.maxHeight = null;
+                            this.setAttribute('aria-expanded', 'false');
+                        } else {
+                            content.style.maxHeight = content.scrollHeight + "px";
+                            this.setAttribute('aria-expanded', 'true');
+                        }
+                    });
+                }
+            </script>
+        </div>
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>

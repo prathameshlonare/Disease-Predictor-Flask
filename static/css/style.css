@@ -1,0 +1,452 @@
+/* Basic Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #e9eef4;
+    color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2 {
+    text-align: center;
+    color: #283a64;
+    margin-bottom: 20px;
+}
+
+h1 {
+    border-bottom: 2px solid #3b5998;
+    padding-bottom: 10px;
+}
+
+/* Form Styles */
+.form-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    background-color: #f2f2f2;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Autocomplete Styles */
+.autocomplete {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.autocomplete input {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 1;
+    /* Position the autocomplete items to be the front */
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+/* When hovering an item: */
+.autocomplete-items div:hover {
+    background-color: #e9e9e9;
+}
+
+/* An active - highlighted item: */
+.autocomplete-active {
+    background-color: DodgerBlue !important;
+    color: #fff;
+}
+
+/* Symptom List Styles */
+.symptom-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.symptom-list li {
+    background-color: #f9f9f9;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.symptom-list li:last-child {
+    border-bottom: none;
+}
+
+.symptom-list .remove-symptom {
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.symptom-hint {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: -10px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+
+.btn-primary {
+    display: block;
+    width: 100%;
+    background-color: #3b5998;
+    /* Primary blue for predict button */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    /* Space between buttons */
+}
+
+.btn-primary:hover {
+    background-color: #2d4373;
+    /* Darker blue on hover */
+}
+
+.btn-secondary {
+    display: block;
+    width: 100%;
+    background-color: #6c757d;
+    /* Grey for clear button */
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    /* Darker grey on hover */
+}
+
+/* Loading Indicator Styles */
+.loading-indicator {
+    display: none;
+    /* Hidden by default */
+    text-align: center;
+    padding: 15px;
+    font-size: 1.1rem;
+    color: #283a64;
+    background-color: #e9eef4;
+    border-radius: 8px;
+    margin-top: 20px;
+    border: 1px solid #b0c4de;
+}
+
+.loading-indicator::before {
+    content: "Processing...";
+    display: block;
+    margin-bottom: 10px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #3b5998;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Results Styles */
+.results-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #eef;
+    border-radius: 8px;
+    border: 1px solid #ccccff;
+}
+
+.results-section h2 {
+    border-bottom: 1px solid #ccccff;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.result-item {
+    margin-bottom: 10px;
+}
+
+.predicted-disease-label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.confidence {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.message {
+    font-style: italic;
+    color: #555;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+
+/* Status-specific styling */
+.status-success {
+    color: #28a745;
+    /* Green */
+    font-weight: bold;
+}
+
+.status-uncertain {
+    color: #ffc107;
+    /* Yellow/Orange */
+    font-weight: bold;
+}
+
+.status-error {
+    color: #dc3545;
+    /* Red */
+    font-weight: bold;
+}
+
+.error-message {
+    color: #d9534f;
+    font-weight: bold;
+    background-color: #f9eaea;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.unrecognized-symptoms {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 10px;
+    border-top: 1px dashed #ccc;
+    padding-top: 10px;
+}
+
+/* Collapsible Hospital Recommendations */
+.collapsible {
+    background-color: #f1f1f1;
+    color: #333;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.active,
+.collapsible:hover {
+    background-color: #ccc;
+}
+
+.collapsible:after {
+    content: '\02795';
+    /* Plus sign */
+    font-size: 13px;
+    color: #666;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2796";
+    /* Minus sign */
+}
+
+.content {
+    padding: 0 18px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    border: 1px solid #eee;
+    border-top: none;
+    border-radius: 0 0 5px 5px;
+}
+
+.content ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.content li {
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.external-links {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #eee;
+}
+
+.external-links a {
+    color: #283a64;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.external-links a:hover {
+    text-decoration: underline;
+}
+
+/* Media Query for responsiveness */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        font-size: 0.95rem;
+        padding: 10px 15px;
+    }
+
+    textarea {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .symptom-hint,
+    .unrecognized-symptoms {
+        font-size: 0.85rem;
+    }
+
+    .predicted-disease-label {
+        font-size: 1.1rem;
+    }
+
+    .confidence {
+        font-size: 1rem;
+    }
+
+    .collapsible {
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    .content {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+}
+
+.unrecognized-symptom {
+    color: #d9534f;
+    /* Red color for unrecognized symptoms */
+    font-style: italic;
+}

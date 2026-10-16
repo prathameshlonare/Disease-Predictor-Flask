@@ -62,6 +62,6 @@ def predict():
 if __name__ == '__main__':
     # Ensure required files are loaded before running the app
     if disease_predictor.is_ready():
-        app.run(debug=True, port=5000) # You can change the port if 5000 is in use
+        app.run(debug=True, port=5000, use_reloader=False) # use_reloader=False required when not in main thread (e.g. Streamlit)
     else:
         logging.error("\nFlask app cannot start because required model/data files could not be loaded. Please check the error messages above and ensure all files are correct and present.")

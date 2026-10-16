@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <script>
-    window.symptomIndex = JSON.parse('{{ symptom_index|tojson }}');
+    window.symptomIndex = {{ symptom_index|tojson }};
 </script>
 
 <body>
@@ -44,7 +44,7 @@
             <div class="spinner"></div>
         </div>
 
-        {% if results['status'] == 'Prediction Successful' %}
+        {% if results %}
         <div class="results-section" aria-live="polite">
             <h2>Prediction Results</h2>
             {% if results['status'] == 'Prediction Successful' %}
@@ -109,6 +109,7 @@
 
     </div>
 
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 
 </html>
